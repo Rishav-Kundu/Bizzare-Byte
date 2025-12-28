@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organiser Section</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<script src="../js/script.js"></script>
+<script>
+if(!localStorage.getItem("isStudent") || !localStorage.getItem("organiserVerified")){
+    alert("Access denied! Enter valid pass key.");
+    window.location.href="organiser-passkey.html";
+}
+const eventName = localStorage.getItem("organiserVerified");
+const budgets = JSON.parse(localStorage.getItem("eventBudgets")||"{}");
+document.addEventListener("DOMContentLoaded", ()=>{
+    document.getElementById("event-budget").value = budgets[eventName] || "";
+});
+</script>
+
+<div class="form-container">
+    <h2>Organiser Notes - <span id="event-name-display"></span></h2>
+    <label for="event-budget">Event Budget</label>
+    <input type="number" id="event-budget" readonly>
+
+    <label for="org-notes">Leave Notes / Updates</label>
+    <textarea id="org-notes" rows="4" placeholder="Enter your notes here"></textarea>
+
+    <button class="btn" onclick="submitOrganiserForm()">Submit Notes</button>
+    <a href="student-dashboard.html" class="back-btn">Go Back</a>
+</div>
+
+<script>
+document.getElementById("event-name-display").innerText = eventName;
+</script>
+</body>
+</html>

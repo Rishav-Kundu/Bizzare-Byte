@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Participant Form</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<script src="../js/script.js"></script>
+<script>
+if(!localStorage.getItem("isStudent")){
+    alert("Please login first!");
+    window.location.href="../login/login.html";
+}
+// Populate dropdown on page load
+document.addEventListener("DOMContentLoaded", ()=>populateEventDropdown("event-name","submit-participant-btn"));
+</script>
+
+<div class="form-container">
+    <h2>Participant Registration</h2>
+    <label for="event-name">Select Event</label>
+    <select id="event-name"></select>
+
+    <label for="dept">Department</label>
+    <input type="text" id="dept" placeholder="Department">
+
+    <label for="section">Section</label>
+    <input type="text" id="section" placeholder="Section">
+
+    <label for="roll-no">Class Roll No.</label>
+    <input type="text" id="roll-no" placeholder="Roll Number">
+
+    <label for="performance">Performance (singing, dancing, drama, etc.)</label>
+    <input type="text" id="performance" placeholder="Performance">
+
+    <button class="btn" id="submit-participant-btn" onclick="submitParticipantForm()">Submit</button>
+    <a href="student-dashboard.html" class="back-btn">Go Back</a>
+</div>
+</body>
+</html>

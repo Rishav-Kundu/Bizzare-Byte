@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Event - Admin</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<script src="../js/script.js"></script>
+<script>
+if(!localStorage.getItem("isAdmin")){
+    alert("Admin login required!");
+    window.location.href="../login/login.html";
+}
+</script>
+
+<div class="form-container">
+    <h2>Add Event</h2>
+    <label for="event-name">Event Name</label>
+    <input type="text" id="event-name" placeholder="Enter event name">
+    <label for="event-date">Date</label>
+    <input type="date" id="event-date">
+    <label for="event-desc">Description</label>
+    <textarea id="event-desc" rows="3" placeholder="Enter event description"></textarea>
+    <label for="organiser-budget">Organiser Budget</label>
+    <input type="number" id="organiser-budget" placeholder="Enter budget">
+    <label for="organiser-passkey">Organiser Pass Key</label>
+    <input type="text" id="organiser-passkey" placeholder="Enter 4-digit pass key">
+    <button class="btn" onclick="addEventWithDetails()">Add Event</button>
+    <a href="admin-dashboard.html" class="back-btn">Go Back</a>
+</div>
+
+<h3>Current Events</h3>
+<div id="event-list">
+<!-- Events will appear here with proper styled clear buttons -->
+</div>
+
+<script>populateEventList();</script>
+</body>
+</html>

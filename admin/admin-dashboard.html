@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<script src="../js/script.js"></script>
+<script>
+if(!localStorage.getItem("isAdmin")){
+    alert("Please login first!");
+    window.location.href="../login/login.html";
+}
+</script>
+
+<div class="dashboard-container">
+    <h2>Admin Dashboard</h2>
+
+    <div class="admin-section">
+        <h3>Add Event</h3>
+        <a href="add-event.html" class="btn">Add New Event</a>
+    </div>
+
+    <div class="admin-section">
+        <h3>Manage Participants</h3>
+        <a href="manage-participants.html" class="btn">View / Clear Participants</a>
+    </div>
+
+    <div class="admin-section">
+        <h3>Manage Organisers</h3>
+        <a href="manage-organisers.html" class="btn">View / Clear Organiser Notes</a>
+    </div>
+
+    <button class="btn" onclick="logout()">Logout</button>
+</div>
+</body>
+</html>
