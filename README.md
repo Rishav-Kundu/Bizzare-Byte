@@ -32,7 +32,7 @@ This repository contains **two versions** of the College Event Management System
 cd backend
 npm install
 node server.js
-
+```
 Then open:
 http://localhost:3000
 
