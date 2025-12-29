@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<script src="../js/script.js"></script>
+<script>
+if(!localStorage.getItem("isAdmin")){
+    alert("Please login first!");
+    window.location.href="../login/login.html";
+}
+</script>
+
+<div class="app">
+    <aside class="sidebar">
+        <div class="logo">Bizzare Byte</div>
+        <a href="admin-dashboard.html" class="nav-item active"><span class="icon">🏠</span><span class="label">Dashboard</span></a>
+        <a href="add-event.html" class="nav-item"><span class="icon">✚</span><span class="label">Add Event</span></a>
+        <a href="manage-participants.html" class="nav-item"><span class="icon">👥</span><span class="label">Participants</span></a>
+        <a href="manage-organisers.html" class="nav-item"><span class="icon">📝</span><span class="label">Organisers</span></a>
+        <div style="height:22px"></div>
+        <button class="btn" onclick="logout()">Logout</button>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div>
+                <div class="welcome">Welcome, Admin!</div>
+                <div class="subtle">Manage events and participants</div>
+            </div>
+        </div>
+
+        <div class="stat-cards">
+            <div class="stat"><div class="label">Approved Events</div><div class="num">3</div></div>
+            <div class="stat"><div class="label">Pending Approvals</div><div class="num">2</div></div>
+            <div class="stat"><div class="label">Certificates Earned</div><div class="num">1</div></div>
+        </div>
+
+        <div class="card admin-section">
+            <h3>Add Event</h3>
+            <a href="add-event.html" class="btn">Add New Event</a>
+        </div>
+
+        <div class="card admin-section">
+            <h3>Manage Participants</h3>
+            <a href="manage-participants.html" class="btn">View / Clear Participants</a>
+        </div>
+
+        <div class="card admin-section">
+            <h3>Manage Organisers</h3>
+            <a href="manage-organisers.html" class="btn">View / Clear Organiser Notes</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

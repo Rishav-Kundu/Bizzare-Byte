@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="main">
+    <div class="card login-container">
+        <div>
+            <h3>Admin Login</h3>
+            <input type="text" id="admin-username" placeholder="Username">
+            <input type="password" id="admin-password" placeholder="Password">
+            <div style="margin-top:10px;"><button class="btn" onclick="adminLogin()">Login as Admin</button></div>
+        </div>
+        <div>
+            <h3>Student Login</h3>
+            <input type="text" id="student-name" placeholder="Name">
+            <input type="text" id="student-reg" placeholder="College Registration Number">
+            <div style="margin-top:10px;"><button class="btn" onclick="studentLogin()">Login as Student</button></div>
+        </div>
+        <div style="grid-column:1/-1; text-align:center; margin-top:-6px;"><a href="../index.html" class="back-btn">Go Back</a></div>
+    </div>
+</div>
+<script src="../js/script.js"></script>
+</body>
+</html>
