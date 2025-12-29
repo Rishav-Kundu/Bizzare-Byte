@@ -37,8 +37,10 @@ Then open:
 http://localhost:3000
 
 ## 🎓 Academic Note
-This repository demonstrates the evolution...
+This repository demonstrates a website for event management in accordance to St. Thomas College of Engineering and Technology
 
+## 👤 Authors
+Rishav Kundu
 Sania Mandal
 Sangni Singh
 Dev Shah
