@@ -29,10 +29,22 @@ This repository contains **older versions** of the project kept for reference.
 
 ---
 
+## ✅ Latest Working Version
+
+📁 `college-event-system/`
+
+- Full-stack College Event Management System
+- Node.js + Express backend
+- MySQL database
+- Admin / Student / Organiser modules
+- Attendance & Certificate management
+
+
+
 ## ▶️ How to Run the Final Version
 
 ```bash
-cd backend
+cd college-event-system
 npm install
 node server.js
 ```
