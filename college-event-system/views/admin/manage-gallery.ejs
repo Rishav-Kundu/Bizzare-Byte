@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Gallery</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ADMIN HEADER -->
+  <div class="admin-header">
+    <h1>Manage Gallery</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container">
+
+    <% if (events.length === 0) { %>
+      <p class="empty-text">No events created yet.</p>
+    <% } %>
+
+    <% events.forEach(event => { %>
+      <div class="gallery-event">
+
+        <!-- Event Name -->
+        <h3><%= event.name %></h3>
+
+        <!-- Existing Links -->
+        <div class="gallery-links">
+          <% 
+            const eventLinks = gallery.filter(g => g.event_name === event.name);
+            if (eventLinks.length === 0) { 
+          %>
+            <p class="empty-text">No gallery links added yet.</p>
+          <% } else { %>
+            <% eventLinks.forEach(link => { %>
+              <div class="gallery-link-item">
+                <a href="<%= link.link %>" target="_blank">
+                  Open Drive Link
+                </a>
+
+                <a href="/admin/delete-gallery/<%= link.id %>"
+                   class="btn btn-danger"
+                   onclick="return confirm('Delete this link?')">
+                  Delete
+                </a>
+              </div>
+            <% }) %>
+          <% } %>
+        </div>
+
+        <!-- Add New Link -->
+        <form action="/admin/add-gallery" method="post" class="gallery-form">
+          <input type="hidden" name="event_id" value="<%= event.id %>">
+          <input
+            type="url"
+            name="link"
+            placeholder="Paste Google Drive link here"
+            required
+          >
+          <button class="btn btn-primary">Add Link</button>
+        </form>
+
+      </div>
+    <% }) %>
+
+  </div>
+
+</body>
+</html>

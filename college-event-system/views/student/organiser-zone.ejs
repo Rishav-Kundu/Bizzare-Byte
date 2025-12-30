@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Zone</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header">
+    <h1>Organiser Zone</h1>
+    <a href="/student/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container organiser-container">
+
+    <% if (events.length === 0) { %>
+      <p class="empty-text">No events available.</p>
+    <% } else { %>
+
+      <div class="organiser-card">
+        <h2>Access Organiser Panel</h2>
+
+        <% if (error) { %>
+          <p class="error-text"><%= error %></p>
+        <% } %>
+
+        <form action="/student/organiser-zone" method="post">
+          <label>Select Event</label>
+          <select name="event_id" required>
+            <% events.forEach(e => { %>
+              <option value="<%= e.id %>"><%= e.name %></option>
+            <% }) %>
+          </select>
+
+          <input type="password" name="passkey" placeholder="Enter Passkey" required>
+
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="text" name="regno" placeholder="Registration Number" required>
+
+          <button class="btn btn-primary">Enter</button>
+        </form>
+      </div>
+
+    <% } %>
+
+  </div>
+
+</body>
+</html>

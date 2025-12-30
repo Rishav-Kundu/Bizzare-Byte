@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback – Events</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Feedback</h1>
+  <a href="/admin/dashboard" class="btn secondary">← Back to Dashboard</a>
+</div>
+
+<div class="container">
+  <h2 class="section-title">Select an Event</h2>
+
+  <% if (events.length === 0) { %>
+    <p class="empty-text">No events available.</p>
+  <% } else { %>
+    <div class="event-grid">
+      <% events.forEach(e => { %>
+        <a href="/admin/feedback/<%= e.id %>" class="event-card">
+          <h3><%= e.name %></h3>
+          <p><%= new Date(e.date).toDateString() %></p>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+</body>
+</html>

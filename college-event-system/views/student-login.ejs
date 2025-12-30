@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <h2>Student Login</h2>
+
+    <% if (error) { %>
+      <p class="error-text"><%= error %></p>
+    <% } %>
+
+    <form action="/student/login" method="post">
+      <input
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        required
+      >
+
+      <input
+        type="text"
+        name="regno"
+        placeholder="College Registration Number"
+        required
+      >
+
+      <button class="btn btn-primary">Login</button>
+    </form>
+
+    <a href="/login" class="back-link">← Back</a>
+  </div>
+
+</body>
+</html>

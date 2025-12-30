@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Events</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header browse-header">
+    <h1>Browse All Events</h1>
+    <a href="<%= backUrl %>" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container">
+
+    <div class="browse-controls">
+        <div class="search-card">
+        <label class="section-title">Search Events</label>
+        <div class="search-box">
+          <input type="search" id="search-events" placeholder="Search by event name...">
+        </div>
+
+        <div class="chips">
+          <button class="chip active" data-cat="all">All</button>
+          <% if (typeof categories !== 'undefined' && categories.length > 0) { %>
+            <% categories.forEach(function(cat) { %>
+              <button class="chip" data-cat="<%= (cat||'').toString().toLowerCase() %>"><%= cat %></button>
+            <% }) %>
+          <% } else { %>
+            <button class="chip" data-cat="technical">Technical</button>
+            <button class="chip" data-cat="cultural">Cultural</button>
+            <button class="chip" data-cat="sports">Sports</button>
+            <button class="chip" data-cat="academic">Academic</button>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <% if (events.length === 0) { %>
+      <p class="empty-text">No events available right now.</p>
+    <% } else { %>
+
+      <div class="event-grid">
+        <% events.forEach(event => { %>
+          <div class="event-card" data-name="<%= (event.name||'').toString().toLowerCase() %>" data-category="<%= (event.category||'').toString().toLowerCase() %>">
+            <div class="event-card-body">
+              <div class="card-header">
+                <h3><%= event.name %></h3>
+                <div class="badges">
+                  <% if (event.category) { %>
+                    <span class="badge category"><%= event.category %></span>
+                  <% } %>
+                  <% if (event.status === 'approved' || event.approved) { %>
+                    <span class="badge approved">Approved</span>
+                  <% } %>
+                </div>
+              </div>
+
+              <!-- On listing page we only show the date (description and other details are on the event details page) -->
+              <div class="meta">
+                <% if (event.date) { %>
+                  <div class="meta-item">📅 <span><%= new Date(event.date).toDateString() %></span></div>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="/student/view-event/<%= event.id %>" class="btn primary">View Details</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+    <% } %>
+
+  </div>
+  <script src="/js/script.js"></script>
+
+</body>
+</html>
