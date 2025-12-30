@@ -10,19 +10,22 @@ This repository contains **two versions** of the College Event Management System
 
 ## 📌 Important Note (Read This First)
 
-- **`backend/`**  
-  This folder contains the **latest and final full-stack implementation** of the project.  
-  It includes:
-  - Frontend (EJS, HTML, CSS)
-  - Backend (Node.js, Express)
-  - Database integration (MySQL)
+## Project Versions
 
-  👉 **This is the version that should be executed and evaluated.**
+This repository contains **older versions** of the project kept for reference.
 
-- **`frontend-static/`**  
-  This folder contains an **older static frontend version** created using only HTML, CSS, and JavaScript.
+### 📁 old-frontend
+- Static HTML, CSS, JavaScript
+- No backend or database
+- Initial prototype version
 
-  👉 This version is **archived for reference only** and is **not connected to the backend or database**.
+### 📁 old-backend
+- Early Node.js + Express version
+- Incomplete / experimental backend
+- Superseded by newer implementations
+
+> ⚠️ These folders are legacy versions and may not run correctly.
+
 
 ---
 
