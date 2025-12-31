@@ -5,14 +5,14 @@ const path = require("path");
 
 const app = express();
 
-// DB connection (DO NOT remove – needed to initialize DB)
+// DB connection
 require("./db");
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Session
+// Session setup
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "college_event_secret",
@@ -34,19 +34,15 @@ app.use("/admin", require("./routes/adminRoutes"));
 app.use("/student", require("./routes/studentRoutes"));
 app.use("/organiser", require("./routes/organiserRoutes"));
 
-// Logout
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => res.redirect("/"));
-});
-
-// Home
+// Home route
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-// 🔑 REQUIRED FOR RAILWAY
-const PORT = process.env.PORT || 3000;
+// 🔥 CRITICAL FOR RAILWAY 🔥
+const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
