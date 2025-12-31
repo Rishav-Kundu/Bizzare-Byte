@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Participant Lists – Events</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header">
+    <h1>Participant Lists</h1>
+    <a href="<%= backUrl %>" class="btn btn-secondary">← Back</a>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">Select an Event</h2>
+
+    <% if (!events || events.length === 0) { %>
+      <p class="empty-text">No participant lists available yet.</p>
+    <% } else { %>
+      <div class="event-grid">
+        <% events.forEach(e => { %>
+          <a href="/student/participants/<%= e.id %>" class="event-card">
+            <h3><%= e.name %></h3>
+            <p class="note-text">Date: <%= new Date(e.date).toDateString() %></p>
+            <p class="note-text"><strong><%= e.participant_count %></strong> participants</p>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </div>
+
+</body>
+</html>

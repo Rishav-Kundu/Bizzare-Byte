@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Gallery</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="student-header">
+    <h1>Event Gallery</h1>
+
+    <a href="/student/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container">
+
+    <% if (!gallery || gallery.length === 0) { %>
+      <p class="empty-text">No gallery items available yet.</p>
+    <% } else { %>
+
+      <% gallery.forEach(event => { %>
+        <div class="gallery-event">
+
+          <h3><%= event.event_name %></h3>
+
+          <div class="gallery-links">
+            <% event.links.forEach(link => { %>
+              <a href="<%= link %>" target="_blank" class="gallery-link">
+                📁 Open Gallery
+              </a>
+            <% }) %>
+          </div>
+
+        </div>
+      <% }) %>
+
+    <% } %>
+
+  </div>
+
+</body>
+</html>

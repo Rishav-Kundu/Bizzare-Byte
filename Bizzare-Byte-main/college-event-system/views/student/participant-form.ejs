@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Registration</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header">
+    <h1>Event Registration</h1>
+    <a href="/student/participant-zone" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container form-center">
+
+    <div class="form-card">
+      <h2><%= event.name %></h2>
+      <p class="event-date"><strong>Date:</strong> <%= event.date %></p>
+
+      <form action="/student/participant-form" method="post">
+
+        <input type="hidden" name="event_id" value="<%= event.id %>">
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" name="department" required>
+        </div>
+
+        <div class="form-group">
+          <label>Section (Optional)</label>
+          <input type="text" name="section">
+        </div>
+
+        <div class="form-group">
+          <label>Class Roll Number</label>
+          <input type="text" name="rollno" required>
+        </div>
+
+        <div class="form-group">
+          <label>Participation Category</label>
+          <input
+            type="text"
+            name="category"
+            placeholder="Dance / Singing / Drama etc."
+            required
+          >
+        </div>
+
+        <button class="btn btn-primary">Submit Registration</button>
+
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- ADMIN HEADER -->
+  <div class="admin-header">
+    <h1>Admin Dashboard</h1>
+
+    <form action="/logout" method="get"
+          onsubmit="return confirm('Are you sure you want to log out?')">
+      <button class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+  <!-- DASHBOARD CONTENT -->
+  <div class="dashboard-grid">
+
+    <a href="/admin/create-event" class="dashboard-card">
+      <h3>Create Events</h3>
+      <p>Create and manage college events.</p>
+    </a>
+
+    <a href="/admin/participants/events" class="dashboard-card">
+      <h3>Manage Participants</h3>
+      <p>Select an event and manage participants.</p>
+    </a>
+
+    <a href="/admin/organisers/events" class="dashboard-card">
+      <h3>Manage Organisers</h3>
+      <p>Select an event and manage organisers.</p>
+    </a>
+
+    <a href="/admin/attendance/events" class="dashboard-card">
+      <h3>Attendance</h3>
+      <p>Mark students present or absent.</p>
+    </a>
+
+    <a href="/admin/certificates/events" class="dashboard-card">
+      <h3>Certificate List</h3>
+      <p>View students eligible for certificates.</p>
+    </a>
+
+    <a href="/admin/manage-gallery" class="dashboard-card">
+      <h3>Manage Gallery</h3>
+      <p>Add or remove gallery links.</p>
+    </a>
+
+    <a href="/admin/manage-students" class="dashboard-card">
+      <h3>Manage Students</h3>
+      <p>Allow or block student logins.</p>
+    </a>
+
+    <a href="/admin/feedback/events" class="dashboard-card">
+      <h3>View Feedbacks</h3>
+      <p>View feedback forms and responses per event.</p>
+    </a>
+
+  </div>
+
+</body>
+</html>

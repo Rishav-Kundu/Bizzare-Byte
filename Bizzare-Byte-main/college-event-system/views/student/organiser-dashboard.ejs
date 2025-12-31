@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="student-header">
+    <h1>Organiser Panel</h1>
+    <a href="/student/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container organiser-dashboard">
+
+    <!-- EVENT INFO -->
+    <div class="organiser-card">
+      <h2><%= event.name %></h2>
+      <p class="budget-box">
+        Budget Allocated: <span>₹<%= event.budget %></span>
+      </p>
+    </div>
+
+    <!-- ADMIN MESSAGES -->
+    <div class="organiser-card">
+      <h3>Admin Messages</h3>
+
+      <% if (messages.length === 0) { %>
+        <p class="empty-text">No messages from admin.</p>
+      <% } else { %>
+        <% messages.forEach(m => { %>
+          <div class="message-box">
+            <%= m.message %>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <!-- ORGANISER NOTES -->
+    <div class="organiser-card">
+      <h3>Post Notes</h3>
+
+      <form method="POST" action="/student/organiser-note" class="note-form">
+        <input type="hidden" name="event_id" value="<%= event.id %>">
+
+        <textarea
+          name="note"
+          placeholder="Write a note for admin and other organisers"
+          required
+        ></textarea>
+
+        <button type="submit" class="btn btn-primary">
+          Post Note
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

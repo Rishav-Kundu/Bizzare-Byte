@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Organiser Panel</h1>
+
+  <a href="/organiser/logout" class="btn btn-danger"
+     onclick="return confirm('Logout from organiser panel?')">
+    Logout
+  </a>
+</div>
+
+<div class="container organiser-container">
+
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px;"> <%= msg %> </div>
+  <% } %>
+
+  <!-- Budget Card -->
+  <div class="organiser-card">
+    <h3>Event Budget</h3>
+    <p class="budget-amount">₹ <%= event.budget %></p>
+    <p class="note-text">This budget is set by admin and cannot be edited.</p>
+  </div>
+
+  <!-- Admin Messages -->
+  <div class="organiser-card">
+    <h3>Admin Messages</h3>
+
+    <% if (messages.length === 0) { %>
+      <p class="empty-text">No messages from admin.</p>
+    <% } else { %>
+      <% messages.forEach(msg => { %>
+        <div class="message-box">
+          <%= msg.message %>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <!-- Notes Section -->
+  <div class="organiser-card">
+    <h3>Post Notes</h3>
+
+    <form method="POST" action="/organiser/note">
+      <textarea name="note"
+                placeholder="Write notes for admin and other organisers"
+                required></textarea>
+
+      <button class="btn btn-primary">Post Note</button>
+    </form>
+  </div>
+
+  <!-- Upload Feedback Form -->
+  <div class="organiser-card">
+    <h3>Upload Feedback Form</h3>
+
+    <form method="POST" action="/organiser/upload-feedback">
+      <input type="url" name="form_url" placeholder="Paste feedback form URL here" required>
+      <input type="url" name="response_url" placeholder="(Optional) Paste responses URL (forms or spreadsheet)">
+      <button class="btn btn-primary">Upload Feedback Form</button>
+    </form>
+    <p class="note-text">Students will be redirected to this form when they click Give Feedback for this event.</p>
+    <p class="note-text">Tip: To get a responses URL, open your form's responses or sharing options and copy the link, or provide a spreadsheet URL where responses are collected.</p>
+  </div>
+
+  <% if (feedback) { %>
+    <div class="organiser-card">
+      <h3>Current Feedback Links</h3>
+      <p class="contact-text">Form: <span class="url-box"><a href="<%= feedback.form_url %>" target="_blank" rel="noopener"><%= feedback.form_url %></a></span></p>
+      <% if (feedback.response_url) { %>
+        <p class="contact-text">Responses: <span class="url-box"><a href="<%= feedback.response_url %>" target="_blank" rel="noopener"><%= feedback.response_url %></a></span></p>
+      <% } else { %>
+        <p class="contact-text">Responses link not provided.</p>
+      <% } %>
+      <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove uploaded form link? This cannot be undone.')">
+          <input type="hidden" name="action" value="form">
+          <button class="btn danger">Remove Form</button>
+        </form>
+
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove responses link? This cannot be undone.')">
+          <input type="hidden" name="action" value="response">
+          <button class="btn danger">Remove Responses</button>
+        </form>
+
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove both form and responses links? This cannot be undone.')">
+          <input type="hidden" name="action" value="both">
+          <button class="btn danger">Remove Both</button>
+        </form>
+      </div>
+    </div>
+  <% } %>
+
+</div>
+
+</body>
+</html>

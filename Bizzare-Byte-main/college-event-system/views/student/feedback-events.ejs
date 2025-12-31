@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Give Feedback</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Give Feedback</h1>
+  <a href="/student/dashboard" class="btn secondary">← Back to Dashboard</a>
+</div>
+
+<div class="container">
+  <h2 class="section-title">Select an Event</h2>
+
+  <% if (events.length === 0) { %>
+    <p class="empty-text">No events available.</p>
+  <% } else { %>
+    <div class="event-grid">
+      <% events.forEach(e => { %>
+        <a href="/student/give-feedback/<%= e.id %>" class="event-card">
+          <h3><%= e.name %></h3>
+          <p><%= new Date(e.date).toDateString() %></p>
+          <% if (e.has_form) { %>
+            <div style="margin-top:8px;"><span class="status-badge status-present">Feedback Open</span></div>
+          <% } else { %>
+            <div style="margin-top:8px;"><span class="status-badge status-notmarked">No Form</span></div>
+          <% } %>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+</body>
+</html>
