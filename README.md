@@ -1,4 +1,4 @@
-# Bizzare-Byte 🎉
+# Bizzare-Byte 
 
 **College Event Management System**
 
