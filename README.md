@@ -6,7 +6,7 @@
 
 📦 **Repository:** [https://github.com/Rishav-Kundu/Bizzare-Byte](https://github.com/Rishav-Kundu/Bizzare-Byte)
 
-**For Login,Use**
+**For Login, Use:**
 
 Admin user id : admin
 
@@ -16,7 +16,9 @@ Student name: student
 
 Student college reg no. : 001 
 
-(Students can be added or modified after initial login by admin and consequently,can provide their details accordingly for student login.)
+Students can be added or modified after initial login by admin and consequently,can provide their details accordingly for student login.
+
+
 ---
 
 ## 📌 Project Overview
