@@ -16,7 +16,9 @@ Student name: student
 
 Student college reg no. : 001 
 
-Students can be added or modified after initial login by admin and consequently, can provide their details accordingly for student login.
+(Students can be added or modified after initial login by admin and consequently, can provide their details accordingly for student login.)
+
+organiser passkey for existing events- 1234
 
 
 ---
