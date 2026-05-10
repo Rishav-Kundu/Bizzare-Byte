@@ -2,7 +2,10 @@
 
 **College Event Management System**
 
-🌐 **Live Website:** [https://bizzare-byte-production.up.railway.app](https://bizzare-byte-production.up.railway.app)
+Demo video link: https://drive.google.com/file/d/1j09IDXOexNnI3cyhd4byRiU5A65XtzKq/view?usp=drivesdk
+
+The project was fully functional and deployed during the hackathon (the Railway hosting instance is currently inactive).
+🌐 ** Website:** [https://bizzare-byte-production.up.railway.app](https://bizzare-byte-production.up.railway.app)
 
 📦 **Repository:** [https://github.com/Rishav-Kundu/Bizzare-Byte](https://github.com/Rishav-Kundu/Bizzare-Byte)
 
