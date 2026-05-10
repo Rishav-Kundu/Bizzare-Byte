@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post Notes</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Post Notes</h1>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="/organiser/dashboard" class="btn btn-secondary">← Dashboard</a>
+    <a href="/organiser/logout" class="btn btn-danger" onclick="return confirm('Logout from organiser panel?')">Logout</a>
+  </div>
+</div>
+
+<div class="container organiser-container">
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px; grid-column: 1 / -1;"><%= msg %></div>
+  <% } %>
+
+  <div class="organiser-card fullwidth">
+    <h3>Current Note</h3>
+
+    <% if (currentNote) { %>
+      <div class="message-box"><%= currentNote %></div>
+    <% } else { %>
+      <p class="empty-text">No note saved yet.</p>
+    <% } %>
+
+    <form method="POST" action="/organiser/note">
+      <textarea name="note" placeholder="Write notes for admin and other organisers" required><%= currentNote %></textarea>
+      <button class="btn btn-primary">Save Note</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

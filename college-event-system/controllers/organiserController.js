@@ -1,5 +1,85 @@
 const db = require("../db");
 
+function requireOrganiserSession(req, res) {
+  if (!req.session.organiser) {
+    res.redirect("/organiser/login");
+    return null;
+  }
+
+  return req.session.organiser;
+}
+
+function loadOrganiserEvent(eventId, callback) {
+  db.query(
+    "SELECT * FROM events WHERE id = ?",
+    [eventId],
+    (err, eventRows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (!eventRows || eventRows.length === 0) {
+        return callback(new Error("Event not found"));
+      }
+
+      callback(null, eventRows[0]);
+    }
+  );
+}
+
+function loadOrganiserMessages(eventId, callback) {
+  db.query(
+    "SELECT message FROM organiser_messages WHERE event_id = ?",
+    [eventId],
+    (err, messages) => {
+      if (err) {
+        return callback(err);
+      }
+
+      callback(null, messages || []);
+    }
+  );
+}
+
+function loadFeedbackLinks(eventId, callback) {
+  db.query(
+    "SELECT form_url, response_url FROM feedback_forms WHERE event_id = ?",
+    [eventId],
+    (err, rows) => {
+      if (err) {
+        if (err.code === "ER_NO_SUCH_TABLE") {
+          return callback(null, null);
+        }
+
+        return callback(err);
+      }
+
+      if (!rows || rows.length === 0) {
+        return callback(null, null);
+      }
+
+      callback(null, {
+        form_url: rows[0].form_url,
+        response_url: rows[0].response_url,
+      });
+    }
+  );
+}
+
+function loadCurrentNote(eventId, regno, callback) {
+  db.query(
+    "SELECT notes FROM organisers WHERE event_id = ? AND regno = ? LIMIT 1",
+    [eventId, regno],
+    (err, rows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      callback(null, rows && rows.length ? rows[0].notes : null);
+    }
+  );
+}
+
 /* =========================
    LOGIN PAGE
 ========================= */
@@ -49,60 +129,181 @@ exports.login = (req, res) => {
    DASHBOARD
 ========================= */
 exports.dashboard = (req, res) => {
-  if (!req.session.organiser) {
-    return res.redirect("/organiser/login");
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
   }
 
-  const { event_id } = req.session.organiser;
-
-  db.query(
-    "SELECT * FROM events WHERE id = ?",
-    [event_id],
-    (err, event) => {
-      if (err) return res.send("Error");
-
-      db.query(
-        "SELECT message FROM organiser_messages WHERE event_id = ?",
-        [event_id],
-        (err, messages) => {
-          // also load any uploaded feedback form info for this event
-          db.query(
-            "SELECT form_url, response_url FROM feedback_forms WHERE event_id = ?",
-            [event_id],
-            (err, formRows) => {
-              let feedback = null;
-              if (!err && formRows && formRows.length) {
-                feedback = {
-                  form_url: formRows[0].form_url,
-                  response_url: formRows[0].response_url
-                };
-              }
-
-              res.render("organiser/dashboard", {
-                event: event[0],
-                messages,
-                msg: req.query.msg || null,
-                feedback
-              });
-            }
-          );
-        }
-      );
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading organiser dashboard");
     }
-  );
+
+    res.render("organiser/dashboard", {
+      event,
+      msg: req.query.msg || null,
+    });
+  });
+};
+
+/* =========================
+   EVENT BUDGET PAGE
+========================= */
+exports.budgetPage = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading budget page");
+    }
+
+    res.render("organiser/budget", {
+      event,
+      msg: req.query.msg || null,
+    });
+  });
+};
+
+/* =========================
+   ADMIN MESSAGES PAGE
+========================= */
+exports.messagesPage = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading messages page");
+    }
+
+    loadOrganiserMessages(session.event_id, (messagesErr, messages) => {
+      if (messagesErr) {
+        console.error(messagesErr);
+        return res.send("Error loading messages");
+      }
+
+      res.render("organiser/messages", {
+        event,
+        messages,
+        msg: req.query.msg || null,
+      });
+    });
+  });
+};
+
+/* =========================
+   POST NOTES PAGE
+========================= */
+exports.notesPage = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading notes page");
+    }
+
+    loadCurrentNote(session.event_id, session.regno, (noteErr, note) => {
+      if (noteErr) {
+        console.error(noteErr);
+        return res.send("Error loading notes");
+      }
+
+      res.render("organiser/notes", {
+        event,
+        currentNote: note || "",
+        msg: req.query.msg || null,
+      });
+    });
+  });
+};
+
+/* =========================
+   UPLOAD FEEDBACK PAGE
+========================= */
+exports.uploadFeedbackPage = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading feedback page");
+    }
+
+    loadFeedbackLinks(session.event_id, (feedbackErr, feedback) => {
+      if (feedbackErr) {
+        console.error(feedbackErr);
+        return res.send("Error loading feedback links");
+      }
+
+      res.render("organiser/upload-feedback", {
+        event,
+        feedback,
+        msg: req.query.msg || null,
+      });
+    });
+  });
+};
+
+/* =========================
+   CURRENT FEEDBACK LINKS PAGE
+========================= */
+exports.feedbackLinksPage = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  loadOrganiserEvent(session.event_id, (err, event) => {
+    if (err) {
+      console.error(err);
+      return res.send("Error loading feedback links page");
+    }
+
+    loadFeedbackLinks(session.event_id, (feedbackErr, feedback) => {
+      if (feedbackErr) {
+        console.error(feedbackErr);
+        return res.send("Error loading feedback links");
+      }
+
+      res.render("organiser/feedback-links", {
+        event,
+        feedback,
+        msg: req.query.msg || null,
+      });
+    });
+  });
 };
 
 /* =========================
    POST NOTE
 ========================= */
 exports.postNote = (req, res) => {
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
   const { note } = req.body;
-  const { event_id } = req.session.organiser;
 
   db.query(
     "UPDATE organisers SET notes = ? WHERE event_id = ? AND regno = ?",
-    [note, event_id, req.session.organiser.regno],
-    () => res.redirect("/organiser/dashboard")
+    [note, session.event_id, session.regno],
+    () => res.redirect("/organiser/notes?msg=" + encodeURIComponent("Note saved successfully"))
   );
 };
 
@@ -111,11 +312,15 @@ exports.postNote = (req, res) => {
   (stores a feedback form URL per event)
 ========================= */
 exports.uploadFeedback = (req, res) => {
-  if (!req.session.organiser) return res.redirect('/organiser/login');
-  const { event_id } = req.session.organiser;
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  const { event_id } = session;
   const { form_url } = req.body;
 
-  if (!form_url) return res.redirect('/organiser/dashboard');
+  if (!form_url) return res.redirect('/organiser/upload-feedback?msg=' + encodeURIComponent('Please enter a feedback form URL'));
 
   // Clean input (trim and remove newlines) to prevent stored broken URLs
   const cleanUrl = (s) => (s || '').toString().trim().replace(/[\r\n]+/g, '');
@@ -145,7 +350,7 @@ exports.uploadFeedback = (req, res) => {
           if (err) {
             console.error(err);
           }
-          res.redirect('/organiser/dashboard');
+          res.redirect('/organiser/feedback-links?msg=' + encodeURIComponent('Feedback form saved successfully'));
         }
       );
     }
@@ -156,11 +361,15 @@ exports.uploadFeedback = (req, res) => {
    REMOVE FEEDBACK LINKS
 ========================= */
 exports.removeFeedback = (req, res) => {
-  if (!req.session.organiser) return res.redirect('/organiser/login');
-  const { event_id } = req.session.organiser;
+  const session = requireOrganiserSession(req, res);
+  if (!session) {
+    return;
+  }
+
+  const { event_id } = session;
   const { action } = req.body; // 'form' | 'response' | 'both'
 
-  if (!action) return res.redirect('/organiser/dashboard');
+  if (!action) return res.redirect('/organiser/feedback-links');
 
   // Ensure table exists
   db.query(`CREATE TABLE IF NOT EXISTS feedback_forms (
@@ -196,7 +405,7 @@ exports.removeFeedback = (req, res) => {
         if (!err && rows.length === 0) {
           db.query('INSERT INTO feedback_forms (event_id, form_url, response_url) VALUES (?, NULL, NULL)', [event_id]);
         }
-        return res.redirect('/organiser/dashboard?msg=' + encodeURIComponent('Feedback links updated'));
+        return res.redirect('/organiser/feedback-links?msg=' + encodeURIComponent('Feedback links updated'));
       });
     });
   });

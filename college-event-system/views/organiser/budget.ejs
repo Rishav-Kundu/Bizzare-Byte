@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Budget</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Event Budget</h1>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="/organiser/dashboard" class="btn btn-secondary">← Dashboard</a>
+    <a href="/organiser/logout" class="btn btn-danger" onclick="return confirm('Logout from organiser panel?')">Logout</a>
+  </div>
+</div>
+
+<div class="container organiser-container">
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px; grid-column: 1 / -1;"><%= msg %></div>
+  <% } %>
+
+  <div class="organiser-card fullwidth">
+    <h3>Event Budget</h3>
+    <p class="budget-amount">₹ <%= event.budget !== null && event.budget !== undefined ? event.budget : 'Not set' %></p>
+    <p class="note-text">This budget is set by admin and cannot be edited from the organiser panel.</p>
+  </div>
+</div>
+
+</body>
+</html>

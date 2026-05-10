@@ -14,6 +14,15 @@ router.post("/login", organiserController.login);
 router.get("/dashboard", organiserController.dashboard);
 
 /* =========================
+   ORGANISER SECTION PAGES
+========================= */
+router.get("/budget", organiserController.budgetPage);
+router.get("/messages", organiserController.messagesPage);
+router.get("/notes", organiserController.notesPage);
+router.get("/upload-feedback", organiserController.uploadFeedbackPage);
+router.get("/feedback-links", organiserController.feedbackLinksPage);
+
+/* =========================
    POST ORGANISER NOTE
 ========================= */
 router.post("/note", organiserController.postNote);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Messages</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Admin Messages</h1>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="/organiser/dashboard" class="btn btn-secondary">← Dashboard</a>
+    <a href="/organiser/logout" class="btn btn-danger" onclick="return confirm('Logout from organiser panel?')">Logout</a>
+  </div>
+</div>
+
+<div class="container organiser-container">
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px; grid-column: 1 / -1;"><%= msg %></div>
+  <% } %>
+
+  <div class="organiser-card fullwidth">
+    <h3>Admin Messages</h3>
+
+    <% if (messages.length === 0) { %>
+      <p class="empty-text">No messages from admin yet.</p>
+    <% } else { %>
+      <% messages.forEach(item => { %>
+        <div class="message-box"><%= item.message %></div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+</body>
+</html>

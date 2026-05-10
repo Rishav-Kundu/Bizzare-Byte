@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Feedback Form</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Upload Feedback Form</h1>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="/organiser/dashboard" class="btn btn-secondary">← Dashboard</a>
+    <a href="/organiser/feedback-links" class="btn btn-secondary">Current Links</a>
+    <a href="/organiser/logout" class="btn btn-danger" onclick="return confirm('Logout from organiser panel?')">Logout</a>
+  </div>
+</div>
+
+<div class="container organiser-container">
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px; grid-column: 1 / -1;"><%= msg %></div>
+  <% } %>
+
+  <div class="organiser-card fullwidth">
+    <h3>Upload Feedback Form</h3>
+
+    <form method="POST" action="/organiser/upload-feedback">
+      <input
+        type="url"
+        name="form_url"
+        placeholder="Paste feedback form URL here"
+        value="<%= feedback && feedback.form_url ? feedback.form_url : '' %>"
+        required
+      >
+      <input
+        type="url"
+        name="response_url"
+        placeholder="(Optional) Paste responses URL (forms or spreadsheet)"
+        value="<%= feedback && feedback.response_url ? feedback.response_url : '' %>"
+      >
+      <button class="btn btn-primary">Save Feedback Links</button>
+    </form>
+
+    <p class="note-text">Students will be redirected to this form when they click Give Feedback for this event.</p>
+    <p class="note-text">Tip: To get a responses URL, open your form's responses or sharing options and copy the link, or provide a spreadsheet URL where responses are collected.</p>
+  </div>
+</div>
+
+</body>
+</html>

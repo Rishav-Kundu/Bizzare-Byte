@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Current Feedback Links</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="organiser-header">
+  <h1><%= event.name %> – Current Feedback Links</h1>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="/organiser/dashboard" class="btn btn-secondary">← Dashboard</a>
+    <a href="/organiser/upload-feedback" class="btn btn-secondary">Upload Form</a>
+    <a href="/organiser/logout" class="btn btn-danger" onclick="return confirm('Logout from organiser panel?')">Logout</a>
+  </div>
+</div>
+
+<div class="container organiser-container">
+  <% if (msg) { %>
+    <div class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;margin:0 20px 18px; grid-column: 1 / -1;"><%= msg %></div>
+  <% } %>
+
+  <div class="organiser-card fullwidth">
+    <h3>Current Feedback Links</h3>
+
+    <% if (feedback) { %>
+      <p class="contact-text">Form: <span class="url-box"><a href="<%= feedback.form_url %>" target="_blank" rel="noopener"><%= feedback.form_url %></a></span></p>
+      <% if (feedback.response_url) { %>
+        <p class="contact-text">Responses: <span class="url-box"><a href="<%= feedback.response_url %>" target="_blank" rel="noopener"><%= feedback.response_url %></a></span></p>
+      <% } else { %>
+        <p class="contact-text">Responses link not provided.</p>
+      <% } %>
+
+      <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove uploaded form link? This cannot be undone.')">
+          <input type="hidden" name="action" value="form">
+          <button class="btn btn-danger">Remove Form</button>
+        </form>
+
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove responses link? This cannot be undone.')">
+          <input type="hidden" name="action" value="response">
+          <button class="btn btn-danger">Remove Responses</button>
+        </form>
+
+        <form method="POST" action="/organiser/remove-feedback" onsubmit="return confirm('Remove both form and responses links? This cannot be undone.')">
+          <input type="hidden" name="action" value="both">
+          <button class="btn btn-danger">Remove Both</button>
+        </form>
+      </div>
+    <% } else { %>
+      <p class="empty-text">No feedback links have been uploaded yet.</p>
+      <a href="/organiser/upload-feedback" class="btn btn-primary">Upload Feedback Form</a>
+    <% } %>
+  </div>
+</div>
+
+</body>
+</html>

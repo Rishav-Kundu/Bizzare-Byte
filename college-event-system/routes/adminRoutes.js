@@ -253,6 +253,18 @@ router.post(
    CERTIFICATES – EVENT FLOW
 ========================= */
 
+// Generate certificate PDF for a participant (must come BEFORE /certificates/:eventId)
+router.get(
+  "/certificates/generate/:eventId/:participantId",
+  adminController.generateCertificate
+);
+
+// Remove participant from certificate list (marks not eligible)
+router.get(
+  "/certificates/remove/:eventId/:participantId",
+  adminController.removeCertificate
+);
+
 // Step 1: Event list for certificates
 router.get(
   "/certificates/events",
@@ -274,18 +286,6 @@ router.get(
 router.get(
   "/feedback/:eventId",
   adminController.feedbackByEvent
-);
-
-// Generate certificate PDF for a participant
-router.get(
-  "/certificates/generate/:eventId/:participantId",
-  adminController.generateCertificate
-);
-
-// Remove participant from certificate list (marks not eligible)
-router.get(
-  "/certificates/remove/:eventId/:participantId",
-  adminController.removeCertificate
 );
 
 module.exports = router;
