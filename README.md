@@ -4,6 +4,7 @@
 
 Demo video link: https://drive.google.com/file/d/1j09IDXOexNnI3cyhd4byRiU5A65XtzKq/view?usp=drivesdk
 
+Website currently inactive due to free-tier hosting limitations.
 The project was fully functional and deployed during the hackathon (the Railway hosting instance is currently inactive).
 🌐 ** Website:** [https://bizzare-byte-production.up.railway.app](https://bizzare-byte-production.up.railway.app)
 
