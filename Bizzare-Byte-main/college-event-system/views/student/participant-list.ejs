@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Participants – <%= event.name %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header">
+    <h1>Participants – <%= event.name %></h1>
+    <a href="<%= backUrl %>" class="btn btn-secondary">← Back</a>
+  </div>
+
+  <div class="container">
+    <% if (!participants || participants.length === 0) { %>
+      <p class="empty-text">No participants approved for this event yet.</p>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Department</th>
+            <th>Section</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% participants.forEach((p, idx) => { %>
+            <tr>
+              <td><%= idx + 1 %></td>
+              <td><%= p.name %></td>
+              <td><%= p.rollno %></td>
+              <td><%= p.department %></td>
+              <td><%= p.section %></td>
+              <td><%= p.category %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+</body>
+</html>

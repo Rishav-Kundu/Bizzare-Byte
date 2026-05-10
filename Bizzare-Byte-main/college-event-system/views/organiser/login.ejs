@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card organiser-card">
+
+    <h2>Organiser Login</h2>
+    <p class="login-subtitle">Access your event management panel</p>
+
+    <% if (error) { %>
+      <p class="error-msg"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/organiser/login" class="login-form">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+
+      <input type="text" name="regno" placeholder="Registration Number" required>
+
+      <select name="event_id" required>
+        <option value="">Select Event</option>
+        <% events.forEach(event => { %>
+          <option value="<%= event.id %>"><%= event.name %></option>
+        <% }) %>
+      </select>
+
+      <input type="password" name="passkey" placeholder="Event Passkey" required>
+
+      <button type="submit" class="btn btn-info">Login</button>
+
+    </form>
+
+    <a href="/login" class="back-btn">← Go Back</a>
+
+  </div>
+</div>
+
+</body>
+</html>
+

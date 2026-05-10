@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback – <%= event.name %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Feedback – <%= event.name %></h1>
+  <a href="/admin/feedback/events" class="btn secondary">← Back to Events</a>
+</div>
+
+<div class="container">
+  <% if (errorMessage) { %>
+    <p class="note-text" style="background:#fff4e5;padding:10px;border-radius:8px;"><strong>Error:</strong> <%= errorMessage %></p>
+  <% } %>
+  <% if (!form_url) { %>
+    <p class="empty-text">Feedback form not uploaded for this event.</p>
+  <% } else { %>
+    <h2 class="section-title">Feedback Form</h2>
+    <p>Form URL: <a href="<%= form_url %>" target="_blank" rel="noopener"><%= form_url %></a></p>
+    <% if (response_url) { %>
+      <p class="section-title">Responses</p>
+      <p>Responses URL: <a href="<%= response_url %>" target="_blank" rel="noopener"><%= response_url %></a></p>
+    <% } else { %>
+      <p class="note-text">Responses link not provided.</p>
+    <% } %>
+  <% } %>
+</div>
+
+</body>
+</html>

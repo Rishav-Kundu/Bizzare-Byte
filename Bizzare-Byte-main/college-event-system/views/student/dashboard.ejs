@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- STUDENT HEADER -->
+  <div class="student-header">
+    <h1>Student Dashboard</h1>
+
+    <form action="/logout" method="get">
+      <button class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+  <!-- DASHBOARD CARDS -->
+  <div class="dashboard-grid">
+
+    <a href="/student/participant-zone" class="dashboard-card">
+      <h3>Participant Zone</h3>
+      <p>Register for events and participate</p>
+    </a>
+
+
+    <a href="/student/gallery" class="dashboard-card">
+      <h3>Gallery</h3>
+      <p>View photos and videos</p>
+    </a>
+
+    <a href="/student/participants/events" class="dashboard-card">
+      <h3>Participant Lists</h3>
+      <p>View approved participants per event</p>
+    </a>
+
+    <a href="/student/view-events" class="dashboard-card">
+      <h3>View Events</h3>
+      <p>See all upcoming events</p>
+    </a>
+
+    <a href="/student/give-feedback/events" class="dashboard-card">
+      <h3>Give Feedback</h3>
+      <p>Provide feedback for events (if organiser uploaded a form).</p>
+    </a>
+
+  </div>
+
+</body>
+</html>

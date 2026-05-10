@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate List</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Certificates – <%= event.name %></h1>
+  <a href="/admin/certificates/events" class="btn secondary">← Back to Events</a>
+</div>
+
+<div class="container">
+
+  <h2 class="section-title">Issued Certificates</h2>
+
+  <% if (!participants || participants.length === 0) { %>
+    <p class="empty-text">Attendance not completed or no present students for this event.</p>
+  <% } else { %>
+    <table class="styled-table">
+      <tr>
+        <th>Name</th>
+        <th>Reg No</th>
+        <th>Action</th>
+      </tr>
+
+      <% participants.forEach(p => { %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.rollno %></td>
+          <td>
+            <a href="/admin/certificates/generate/<%= event.id %>/<%= p.id %>" class="btn primary">Generate</a>
+            <a href="/admin/certificates/remove/<%= event.id %>/<%= p.id %>" class="btn danger">Remove</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+
+</div>
+
+</body>
+</html>

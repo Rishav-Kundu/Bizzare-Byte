@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Participant Zone</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="student-header">
+    <h1>Select an Event</h1>
+    <a href="/student/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container">
+
+    <% if (events.length === 0) { %>
+      <p class="empty-text">No events available for participation.</p>
+    <% } else { %>
+
+      <div class="event-grid">
+        <% events.forEach(event => { %>
+          <div class="event-card">
+            <h3><%= event.name %></h3>
+            <p><strong>Date:</strong> <%= event.date %></p>
+            <p><%= event.description %></p>
+
+            <a
+              href="/student/participant-form?event_id=<%= event.id %>"
+              class="btn btn-primary"
+            >
+              Participate
+            </a>
+          </div>
+        <% }) %>
+      </div>
+
+    <% } %>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Events</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="admin-header">
+    <h1>Create Events</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary">Back</a>
+  </div>
+
+  <div class="container two-column">
+
+    <!-- CREATE EVENT FORM -->
+    <div class="admin-card">
+      <h2>Create New Event</h2>
+
+      <form action="/admin/create-event" method="post" class="event-form">
+
+        <input type="text" name="name" placeholder="Event Name" required>
+
+        <input type="date" name="date" required>
+
+        <label style="margin-top:6px; font-weight:600; color:#333;">Category</label>
+        <select name="category" required>
+          <option value="">Select category</option>
+          <option value="Technical">Technical</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Sports">Sports</option>
+          <option value="Academic">Academic</option>
+        </select>
+
+        <textarea
+          name="description"
+          placeholder="Event Description"
+          rows="4"
+          required
+        ></textarea>
+
+        <input
+          type="text"
+          name="passkey"
+          placeholder="Organiser Passkey (Hidden)"
+          required
+        >
+
+        <input
+          type="number"
+          name="budget"
+          placeholder="Budget (₹)"
+          required
+        >
+
+        <button class="btn btn-primary">Create Event</button>
+      </form>
+    </div>
+
+    <!-- EVENT LIST -->
+    <div class="admin-card">
+      <h2>Existing Events</h2>
+
+      <% if (events.length === 0) { %>
+        <p class="empty-text">No events created yet.</p>
+      <% } else { %>
+        <% events.forEach(event => { %>
+          <div class="event-item">
+            <div>
+              <h4><%= event.name %> <% if (event.category) { %><small style="font-weight:600;color:#6b7280;margin-left:8px;">(<%= event.category %>)</small><% } %></h4>
+              <p><strong>Date:</strong> <%= event.date %></p>
+            </div>
+
+            <a
+              href="/admin/delete-event/<%= event.id %>"
+              class="btn btn-danger"
+              onclick="return confirm('Delete this event? All related data will be removed.')"
+            >
+              Delete
+            </a>
+          </div>
+        <% }) %>
+      <% } %>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

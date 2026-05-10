@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Participants</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Participants</h1>
+  <a href="/admin/participants/events" class="btn secondary">← Back to Events</a>
+</div>
+
+<div class="container">
+
+  <% if (requests.length === 0 && approved.length === 0) { %>
+    <p class="empty-text">No participants for this event yet.</p>
+  <% } %>
+
+  <% if (requests.length > 0) { %>
+    <h3 class="section-title">Pending Requests</h3>
+    <table class="styled-table">
+      <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+      <% requests.forEach(r => { %>
+        <tr>
+          <td><%= r.name %></td>
+          <td><%= r.department %></td>
+          <td><%= r.category %></td>
+          <td>
+            <a href="/admin/approve-participant/<%= r.id %>" class="btn success">Approve</a>
+            <a href="/admin/reject-participant/<%= r.id %>" class="btn danger">Reject</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+
+  <% if (approved.length > 0) { %>
+    <h3 class="section-title">Approved Participants</h3>
+    <table class="styled-table">
+      <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+      <% approved.forEach(p => { %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.department %></td>
+          <td><%= p.category %></td>
+          <td>
+            <a href="/admin/delete-participant/<%= p.id %><%= typeof eventId !== 'undefined' ? ('?eventId=' + eventId) : '' %>" class="btn danger">Remove</a>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+
+</div>
+
+</body>
+</html>

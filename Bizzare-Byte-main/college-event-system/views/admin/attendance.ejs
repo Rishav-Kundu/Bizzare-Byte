@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>Attendance – <%= event.name %></h1>
+  <a href="/admin/attendance/events" class="btn secondary">← Back</a>
+</div>
+
+<div class="container">
+
+  <% if (participants.length === 0) { %>
+    <p class="empty-text">No participants approved for this event.</p>
+  <% } else { %>
+    <table class="styled-table">
+      <tr>
+        <th>Name</th>
+        <th>Reg No</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+
+      <% participants.forEach(p => { %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.rollno %></td>
+          <td>
+            <% if (p.attendance === 'present') { %>
+              <span class="status-badge status-present">Present</span>
+            <% } else if (p.attendance === 'absent') { %>
+              <span class="status-badge status-absent">Absent</span>
+            <% } else { %>
+              <span class="status-badge status-notmarked">Not Marked</span>
+            <% } %>
+          </td>
+          <td>
+            <form method="POST" action="/admin/attendance/mark" class="attendance-actions">
+              <input type="hidden" name="participant_id" value="<%= p.id %>">
+              <input type="hidden" name="event_id" value="<%= event.id %>">
+
+              <button name="attendance" value="present" class="btn primary <%= p.attendance === 'present' ? 'active' : '' %>">
+                Present
+              </button>
+
+              <button name="attendance" value="absent" class="btn danger <%= p.attendance === 'absent' ? 'active' : '' %>">
+                Absent
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+
+</div>
+</body>
+</html>
